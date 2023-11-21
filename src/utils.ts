@@ -15,7 +15,7 @@ export function chooseReviewers(owner: string, config: Config): string[] {
       reviewGroups,
       numberOfReviewers
     )
-  } else {
+  } else if (config.reviewers && config.reviewers.length > 0) {
     chosenReviewers = chooseUsers(reviewers, numberOfReviewers, owner)
   }
 
