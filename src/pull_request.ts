@@ -11,20 +11,17 @@ export class PullRequest {
     this.context = context
   }
 
-  async addReviewers(reviewers: string[]): Promise<void> {
-    const user_reviewers = reviewers.filter((p) => !p.includes('/'))
-    const team_reviewers = reviewers.filter((p) => p.includes('/'))
-    core.info('users : ')
-    user_reviewers.forEach(core.info)
-    core.info('teams : ')
-    team_reviewers.forEach(core.info)
+  async addReviewers(
+    reviewers: string[],
+    teamReviewers: string[]
+  ): Promise<void> {
     const { owner, repo, number: pull_number } = this.context.issue
     const result = await this.client.rest.pulls.requestReviewers({
       owner,
       repo,
       pull_number,
-      user_reviewers,
-      team_reviewers,
+      reviewers,
+      teamReviewers,
     })
     core.debug(JSON.stringify(result))
   }

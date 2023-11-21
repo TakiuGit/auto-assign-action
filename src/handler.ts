@@ -9,6 +9,7 @@ export interface Config {
   addReviewers: boolean
   addAssignees: boolean | string
   reviewers: string[]
+  teamReviewers: string[]
   assignees: string[]
   filterLabels?: {
     include?: string[]
@@ -102,7 +103,7 @@ export async function handlePullRequest(
       const reviewers = utils.chooseReviewers(owner, config)
 
       if (reviewers.length > 0) {
-        await pr.addReviewers(reviewers)
+        await pr.addReviewers(reviewers, config.teamReviewers)
         core.info(`Added reviewers to PR #${number}: ${reviewers.join(', ')}`)
       }
     } catch (error) {
