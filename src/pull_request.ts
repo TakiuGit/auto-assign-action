@@ -12,9 +12,11 @@ export class PullRequest {
   }
 
   async addReviewers(reviewers: string[]): Promise<void> {
+    reviewers.forEach(print)
     const user_reviewers = reviewers.filter((p) => !p.includes('/'))
     const team_reviewers = reviewers.filter((p) => p.includes('/'))
-
+    user_reviewers.forEach(print)
+    team_reviewers.forEach(print)
     const { owner, repo, number: pull_number } = this.context.issue
     const result = await this.client.rest.pulls.requestReviewers({
       owner,
