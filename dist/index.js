@@ -60,10 +60,10 @@ function handlePullRequest(client, context, config) {
             return;
         }
         if (useReviewGroups && !reviewGroups) {
-            throw new Error('Error in configuration file to do with using review groups. Expected \'reviewGroups\' variable to be set because the variable \'useReviewGroups\' = true.');
+            throw new Error("Error in configuration file to do with using review groups. Expected 'reviewGroups' variable to be set because the variable 'useReviewGroups' = true.");
         }
         if (useAssigneeGroups && !assigneeGroups) {
-            throw new Error('Error in configuration file to do with using review groups. Expected \'assigneeGroups\' variable to be set because the variable \'useAssigneeGroups\' = true.');
+            throw new Error("Error in configuration file to do with using review groups. Expected 'assigneeGroups' variable to be set because the variable 'useAssigneeGroups' = true.");
         }
         const owner = user.login;
         const pr = new pull_request_1.PullRequest(client, context);
@@ -174,7 +174,7 @@ class PullRequest {
                 reviewers,
                 teamReviewers,
             });
-            core.debug(JSON.stringify(result));
+            core.info(JSON.stringify(result));
         });
     }
     addAssignees(assignees) {
@@ -337,7 +337,7 @@ function chooseAssignees(owner, config) {
     const useGroups = useAssigneeGroups && Object.keys(assigneeGroups).length > 0;
     if (typeof addAssignees === 'string') {
         if (addAssignees !== 'author') {
-            throw new Error('Error in configuration file to do with using addAssignees. Expected \'addAssignees\' variable to be either boolean or \'author\'');
+            throw new Error("Error in configuration file to do with using addAssignees. Expected 'addAssignees' variable to be either boolean or 'author'");
         }
         chosenAssignees = [owner];
     }
