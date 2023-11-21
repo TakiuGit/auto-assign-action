@@ -165,12 +165,11 @@ class PullRequest {
     }
     addReviewers(reviewers) {
         return __awaiter(this, void 0, void 0, function* () {
-            reviewers.forEach(core.info);
             const user_reviewers = reviewers.filter((p) => !p.includes('/'));
-            const team_reviewers = reviewers
-                .filter((p) => p.includes('/'))
-                .map((p) => p.split('/')[1]);
+            const team_reviewers = reviewers.filter((p) => p.includes('/'));
+            core.info('users : ');
             user_reviewers.forEach(core.info);
+            core.info('teams : ');
             team_reviewers.forEach(core.info);
             const { owner, repo, number: pull_number } = this.context.issue;
             const result = yield this.client.rest.pulls.requestReviewers({
