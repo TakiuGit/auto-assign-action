@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
 import { Context } from '@actions/github/lib/context'
 import { Client } from './types'
+import { log } from 'util'
 
 export class PullRequest {
   private client: Client
@@ -12,11 +13,11 @@ export class PullRequest {
   }
 
   async addReviewers(reviewers: string[]): Promise<void> {
-    reviewers.forEach(print)
+    reviewers.forEach(console.log)
     const user_reviewers = reviewers.filter((p) => !p.includes('/'))
     const team_reviewers = reviewers.filter((p) => p.includes('/'))
-    user_reviewers.forEach(print)
-    team_reviewers.forEach(print)
+    user_reviewers.forEach(console.log)
+    team_reviewers.forEach(console.log)
     const { owner, repo, number: pull_number } = this.context.issue
     const result = await this.client.rest.pulls.requestReviewers({
       owner,
