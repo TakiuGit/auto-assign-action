@@ -87,7 +87,7 @@ function handlePullRequest(client, context, config) {
             try {
                 const reviewers = utils.chooseReviewers(owner, config);
                 if (reviewers.length > 0) {
-                    yield pr.addReviewers(reviewers);
+                    yield pr.addReviewers(reviewers, config.teamReviewers);
                     core.info(`Added reviewers to PR #${number}: ${reviewers.join(', ')}`);
                 }
             }
@@ -163,21 +163,15 @@ class PullRequest {
         this.client = client;
         this.context = context;
     }
-    addReviewers(reviewers) {
+    addReviewers(reviewers, teamReviewers) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user_reviewers = reviewers.filter((p) => !p.includes('/'));
-            const team_reviewers = reviewers.filter((p) => p.includes('/'));
-            core.info('users : ');
-            user_reviewers.forEach(core.info);
-            core.info('teams : ');
-            team_reviewers.forEach(core.info);
             const { owner, repo, number: pull_number } = this.context.issue;
             const result = yield this.client.rest.pulls.requestReviewers({
                 owner,
                 repo,
                 pull_number,
-                user_reviewers,
-                team_reviewers,
+                reviewers,
+                teamReviewers,
             });
             core.debug(JSON.stringify(result));
         });
