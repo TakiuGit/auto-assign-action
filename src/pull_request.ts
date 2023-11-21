@@ -23,7 +23,7 @@ export class PullRequest {
       reviewers,
       teamReviewers,
     })
-    core.debug(JSON.stringify(result))
+    core.info(JSON.stringify(result))
   }
 
   async addAssignees(assignees: string[]): Promise<void> {
