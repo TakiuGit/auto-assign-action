@@ -101,8 +101,8 @@ export async function handlePullRequest(
   if (addReviewers) {
     try {
       const reviewers = utils.chooseReviewers(owner, config)
-
-      if (reviewers.length > 0) {
+      core.info(`Team : ${config.teamReviewers.join(', ')}`)
+      if (reviewers.length > 0 || config.teamReviewers.length > 0) {
         await pr.addReviewers(reviewers, config.teamReviewers)
         core.info(`Added reviewers to PR #${number}: ${reviewers.join(', ')}`)
       }
