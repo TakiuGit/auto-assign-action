@@ -167,13 +167,15 @@ class PullRequest {
     addReviewers(reviewers, teamReviewers) {
         return __awaiter(this, void 0, void 0, function* () {
             const { owner, repo, number: pull_number } = this.context.issue;
-            const result = yield this.client.rest.pulls.requestReviewers({
+            let newVar = {
                 owner,
                 repo,
                 pull_number,
                 reviewers,
                 teamReviewers,
-            });
+            };
+            core.info(JSON.stringify(newVar));
+            const result = yield this.client.rest.pulls.requestReviewers(newVar);
             core.info(JSON.stringify(result));
         });
     }

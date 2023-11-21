@@ -16,13 +16,15 @@ export class PullRequest {
     teamReviewers: string[]
   ): Promise<void> {
     const { owner, repo, number: pull_number } = this.context.issue
-    const result = await this.client.rest.pulls.requestReviewers({
+    let newVar = {
       owner,
       repo,
       pull_number,
       reviewers,
       teamReviewers,
-    })
+    }
+    core.info(JSON.stringify(newVar))
+    const result = await this.client.rest.pulls.requestReviewers(newVar)
     core.info(JSON.stringify(result))
   }
 
